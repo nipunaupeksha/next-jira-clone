@@ -86,8 +86,8 @@ export const SignInCard = () => {
           </form>
         </Form>
       </CardContent>
-      <div className="px-7">
-        <DottedSeparator />
+      <div className="pb-7">
+        <DottedSeparator className="px-7"/>
       </div>
       <CardContent className="px-7 flex flex-col gap-y-4">
         <Button
@@ -112,7 +112,7 @@ export const SignInCard = () => {
       <div>
         <DottedSeparator className="px-7"/>
       </div>
-      <CardContent className="px-7 flex items-center justify-center">
+      <CardContent className="py-7 flex items-center justify-center">
         <p>
           Don&apos;t have an account?
           <Link href="/sign-up">

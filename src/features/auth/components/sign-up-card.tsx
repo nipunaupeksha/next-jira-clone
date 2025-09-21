@@ -23,16 +23,14 @@ import {
 } from "@/components/ui/form";
 
 import { DottedSeparator } from "@/components/dotted-separator";
-
-const formSchema = z.object({
-  name: z.string().trim().min(1, "A name is required"),
-  email: z.string().trim().min(1, "An email is required").email(),
-  password: z.string().min(8, "Minimum of 8 characters required"),
-});
+import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const { mutate } = useRegister();
+
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -40,8 +38,8 @@ export const SignUpCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log({ values });
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
+    mutate(values);
   };
 
   return (
@@ -115,13 +113,13 @@ export const SignUpCard = () => {
               )}
             />
             <Button disabled={false} size="lg" className="w-full">
-              Login
+              Sign Up
             </Button>
           </form>
         </Form>
       </CardContent>
       <div className="pb-7">
-        <DottedSeparator className="px-7"/>
+        <DottedSeparator className="px-7" />
       </div>
       <CardContent className="px-7 flex flex-col gap-y-4">
         <Button
@@ -144,13 +142,13 @@ export const SignUpCard = () => {
         </Button>
       </CardContent>
       <div>
-        <DottedSeparator className="px-7"/>
+        <DottedSeparator className="px-7" />
       </div>
       <CardContent className="py-7 flex items-center justify-center">
         <p>
           Already have an account?
           <Link href="/sign-in">
-              <span className="text-blue-700">&nbsp;Sign In</span>
+            <span className="text-blue-700">&nbsp;Sign In</span>
           </Link>
         </p>
       </CardContent>

@@ -24,8 +24,11 @@ import {
 
 import { DottedSeparator } from "@/components/dotted-separator";
 import { registerSchema } from "../schemas";
+import { useRegister } from "../api/use-register";
 
 export const SignUpCard = () => {
+  const { mutate } = useRegister();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -36,7 +39,7 @@ export const SignUpCard = () => {
   });
 
   const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log({ values });
+    mutate(values);
   };
 
   return (
@@ -110,13 +113,13 @@ export const SignUpCard = () => {
               )}
             />
             <Button disabled={false} size="lg" className="w-full">
-              Login
+              Sign Up
             </Button>
           </form>
         </Form>
       </CardContent>
       <div className="pb-7">
-        <DottedSeparator className="px-7"/>
+        <DottedSeparator className="px-7" />
       </div>
       <CardContent className="px-7 flex flex-col gap-y-4">
         <Button
@@ -139,13 +142,13 @@ export const SignUpCard = () => {
         </Button>
       </CardContent>
       <div>
-        <DottedSeparator className="px-7"/>
+        <DottedSeparator className="px-7" />
       </div>
       <CardContent className="py-7 flex items-center justify-center">
         <p>
           Already have an account?
           <Link href="/sign-in">
-              <span className="text-blue-700">&nbsp;Sign In</span>
+            <span className="text-blue-700">&nbsp;Sign In</span>
           </Link>
         </p>
       </CardContent>

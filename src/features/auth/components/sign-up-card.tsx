@@ -23,16 +23,11 @@ import {
 } from "@/components/ui/form";
 
 import { DottedSeparator } from "@/components/dotted-separator";
-
-const formSchema = z.object({
-  name: z.string().trim().min(1, "A name is required"),
-  email: z.string().trim().min(1, "An email is required").email(),
-  password: z.string().min(8, "Minimum of 8 characters required"),
-});
+import { registerSchema } from "../schemas";
 
 export const SignUpCard = () => {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -40,7 +35,7 @@ export const SignUpCard = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
     console.log({ values });
   };
 

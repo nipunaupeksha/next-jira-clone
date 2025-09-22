@@ -12,4 +12,4 @@ const app = new Hono()
 export const GET = handle(app);
 export const POST = handle(app);
 
-export type AppType = ReturnType<typeof app.route>;
+export type AppType = typeof app;

@@ -17,11 +17,15 @@ import { DottedSeparator } from "@/components/dotted-separator";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
+import { useCreateWorkspace } from "../api/use-create-workspace";
+
 interface CreateWorkspaceFormProps {
   onCancel?: () => void;
 }
 
 export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
+  const { mutate, isPending } = useCreateWorkspace();
+
   const form = useForm<z.infer<typeof createWorkSpaceSchema>>({
     resolver: zodResolver(createWorkSpaceSchema),
     defaultValues: {
@@ -30,7 +34,7 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
   });
 
   const onSubmit = (values: z.infer<typeof createWorkSpaceSchema>) => {
-    console.log({ values });
+    mutate(values);
   };
 
   return (
@@ -68,10 +72,11 @@ export const CreateWorkspaceForm = ({ onCancel }: CreateWorkspaceFormProps) => {
                 size="lg"
                 variant="secondary"
                 onClick={onCancel}
+                disabled={isPending}
               >
                 Cancel
               </Button>
-              <Button type="submit" size="lg">
+              <Button type="submit" size="lg" disabled={isPending}>
                 Create Workspace
               </Button>
             </div>
